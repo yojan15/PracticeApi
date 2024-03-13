@@ -10,13 +10,12 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class GitaViewModel : ViewModel() {
     private val gitaRepository: GitaRepository = GitaRepository(createApiService())
-    val gitaLiveData: MutableLiveData<Gita> by lazy {
-        MutableLiveData<Gita>()
+    val gitaListLiveData: MutableLiveData<List<Gita>> by lazy {
+        MutableLiveData<List<Gita>>()
     }
-
     fun fetchGitaChapters() {
-        gitaRepository.getChapters { gita: Gita? ->
-            gitaLiveData.value = gita
+        gitaRepository.getChapters { gitaList ->
+            gitaListLiveData.value = gitaList
         }
     }
     private fun createApiService(): ApiService {

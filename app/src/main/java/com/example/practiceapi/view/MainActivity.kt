@@ -4,12 +4,10 @@ import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.lifecycle.Observer
+import androidx.core.view.WindowInsetsCompat 
 import com.example.practiceapi.R
 import com.example.practiceapi.databinding.ActivityMainBinding
 import com.example.practiceapi.viewModel.GitaViewModel
-
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: GitaViewModel
@@ -24,9 +22,11 @@ class MainActivity : AppCompatActivity() {
             insets
         }
         viewModel = GitaViewModel()
-        viewModel.gitaLiveData.observe(this, Observer { gita->
-            binding.textView.text = gita.summary.en
-        })
+        viewModel.gitaListLiveData.observe(this) { gitaList ->
+            if (gitaList != null && gitaList.isNotEmpty()) {
+                binding.textView.text = gitaList[0].summary.en
+            }
+        }
         viewModel.fetchGitaChapters()
     }
 }

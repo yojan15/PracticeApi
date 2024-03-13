@@ -6,5 +6,5 @@ import retrofit2.http.GET
 
 interface ApiService {
     @GET("chapters")
-    fun getChapters() : Call<Gita>
+    fun getChapters() : Call<List<Gita>>
 }
